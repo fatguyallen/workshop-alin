@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk')
 const dynamodb = new AWS.DynamoDB.DocumentClient()
+const Log = require('../lib/log')
 
 const defaultResults = process.env.defaultResults || 8
 const tableName = process.env.restaurants_table
@@ -15,6 +16,7 @@ const getRestaurants = async (count) => {
 }
 
 module.exports.handler = async (event, context) => {
+  Log.debug("GEtting restaurants");
   const restaurants = await getRestaurants(defaultResults)
   const response = {
     statusCode: 200,
